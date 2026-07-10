@@ -152,7 +152,7 @@ function HeroSection() {
         </div>
 
         {/* Sub-info */}
-        <div className="hero-animate mb-10">
+        <div className="hero-animate mb-10 text-color:white ">
           <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-12">
             <div>
               <p className="font-heading text-ghost text-2xl md:text-3xl font-semibold tracking-tight">
