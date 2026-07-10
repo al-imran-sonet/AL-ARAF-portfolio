@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   VAPOR CLINIC — Global Design System
+   ========================================= */
+
+/* --- CSS Custom Properties (Design Tokens) --- */
+:root {
+  --void: #0A0A14;
+  --plasma: #7B61FF;
+  --plasma-light: #A594FF;
+  --ghost: #F0EFF4;
+  --graphite: #18181B;
+  --muted: #6B6B8A;
+  --noise-opacity: 0.04;
+}
+
+/* --- Base Reset & Root --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--void);
+  color: var(--ghost);
+  font-family: 'Sora', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Global Noise Overlay --- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A14;
+}
+::-webkit-scrollbar-thumb {
+  background: #7B61FF;
+  border-radius: 99px;
+}
+
+/* --- Typography Utilities --- */
+.font-heading { font-family: 'Sora', sans-serif; }
+.font-drama { font-family: 'Instrument Serif', serif; }
+.font-mono-data { font-family: 'Fira Code', monospace; }
+
+/* --- Plasma Glow Utilities --- */
+.plasma-glow {
+  box-shadow: 0 0 20px rgba(123, 97, 255, 0.3), 0 0 60px rgba(123, 97, 255, 0.1);
+}
+.plasma-glow-text {
+  text-shadow: 0 0 20px rgba(123, 97, 255, 0.6);
+}
+.plasma-border {
+  border: 1px solid rgba(123, 97, 255, 0.25);
+}
+
+/* --- Glass Surface --- */
+.glass-surface {
+  background: rgba(18, 18, 31, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(123, 97, 255, 0.15);
+}
+
+/* --- Magnetic Button --- */
+.btn-magnetic {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.btn-magnetic:hover {
+  transform: scale(1.03) translateY(-1px);
+  box-shadow: 0 8px 30px rgba(123, 97, 255, 0.4);
+}
+.btn-magnetic .btn-slide {
+  position: absolute;
+  inset: 0;
+  background: var(--plasma-light, #A594FF);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+}
+.btn-magnetic:hover .btn-slide {
+  transform: translateX(0);
+}
+.btn-magnetic span:last-child {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Link Hover Lift --- */
+.link-lift {
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+}
+.link-lift:hover {
+  transform: translateY(-1px);
+}
+
+/* --- Section Fade-in Utility --- */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* --- Plasma Line Divider --- */
+.plasma-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #7B61FF, transparent);
+  opacity: 0.4;
+}
+
+/* --- Grid Dot Background --- */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(123, 97, 255, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* --- Scanning Line Animation --- */
+@keyframes scanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+.scanning-line::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, rgba(123, 97, 255, 0.6), transparent);
+  animation: scanLine 3s linear infinite;
+}
+
+/* --- Typewriter cursor --- */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* --- Card hover states --- */
+.portfolio-card {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+.portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(123, 97, 255, 0.25);
+  border-color: rgba(123, 97, 255, 0.4);
+}
+
+/* --- Quantum particle animation --- */
+@keyframes particle-float {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(30px, -20px) scale(1.2); opacity: 1; }
+  66% { transform: translate(-20px, 10px) scale(0.8); opacity: 0.4; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+}
+.particle {
+  animation: particle-float var(--duration, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* --- Progress bar animation --- */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--target-width); }
+}
+.progress-fill {
+  animation: fillBar 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* --- Page transition --- */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: clamp(2.5rem, 10vw, 5rem);
+  }
+}
+
+/* --- Syllabus Overlay Animation --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
